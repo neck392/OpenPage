@@ -13,7 +13,7 @@ const puppeteer = require('puppeteer');
   console.log('Page Title:', pageTitle);
 
   // Wait to ensure the page content is fully loaded
-  await page.waitForTimeout(5000); // Increase wait time to allow dynamic content to load
+  await new Promise(resolve => setTimeout(resolve, 5000)); // Custom wait time function
 
   // Try a more common selector or inspect the page's HTML structure
   try {
