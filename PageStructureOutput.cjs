@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   
-  await page.goto('https://neck392.tistory.com/64', { waitUntil: 'networkidle2' });
+  await page.goto('page url', { waitUntil: 'networkidle2' });
 
   // Extract the page title
   const pageTitle = await page.title();

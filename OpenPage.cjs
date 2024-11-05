@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-axios.get('https://neck392.tistory.com/64')
+axios.get('page url')
   .then(response => {
     const html = response.data;
     const $ = cheerio.load(html);

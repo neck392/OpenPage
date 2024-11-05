@@ -7,7 +7,7 @@ import time
 driver = webdriver.Chrome(executable_path='path/to/chromedriver')  # chromedriver 경로 지정
 
 # Navigate to the page
-driver.get('https://neck392.tistory.com/64')
+driver.get('wepageurl')
 
 # Wait for the page to load
 time.sleep(3)  # 로딩 시간을 보장하기 위해 대기 (필요에 따라 조정 가능)
