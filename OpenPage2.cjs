@@ -12,13 +12,16 @@ const puppeteer = require('puppeteer');
   const pageTitle = await page.title();
   console.log('Page Title:', pageTitle);
 
-  // Wait for the main content to appear (use a valid selector based on the page's structure)
+  // Wait to ensure the page content is fully loaded
+  await page.waitForTimeout(5000); // Increase wait time to allow dynamic content to load
+
+  // Try a more common selector or inspect the page's HTML structure
   try {
-    await page.waitForSelector('article', { timeout: 5000 }); // Adjust the selector as needed
+    await page.waitForSelector('article, .post-content, .entry-content', { timeout: 10000 }); // Extended timeout and multiple selectors
 
     // Extract the content
     const content = await page.evaluate(() => {
-      const mainContent = document.querySelector('article')?.innerText.trim(); // Adjust selector
+      const mainContent = document.querySelector('article, .post-content, .entry-content')?.innerText.trim(); // Adjust selector
       return mainContent;
     });
 
