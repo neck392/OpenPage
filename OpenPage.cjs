@@ -6,18 +6,18 @@ axios.get('https://neck392.tistory.com/64')
     const html = response.data;
     const $ = cheerio.load(html);
 
-    // 페이지 제목 추출
-    const title = $('title').text();
-    console.log('페이지 제목:', title);
+    // Extracting page title
+    const pageTitle = $('title').text();
+    console.log('Page Title:', pageTitle);
 
-    // 메인 콘텐츠 추출: 올바른 선택자를 사용해야 함
-    const mainContent = $('.post-content').text().trim(); // 예: 'article', '.post-content', 등으로 수정
+    // Extracting main content with the correct selector
+    const mainContent = $('.post-content').text().trim(); // Adjust the selector as needed
     if (mainContent) {
-      console.log('메인 콘텐츠:', mainContent);
+      console.log('Main Content:', mainContent);
     } else {
-      console.log('메인 콘텐츠를 찾을 수 없습니다. 선택자를 확인하세요.');
+      console.log('Main content not found. Please check the selector.');
     }
   })
   .catch(error => {
-    console.error('페이지 요청 중 오류 발생:', error);
+    console.error('Error occurred during page request:', error);
   });
