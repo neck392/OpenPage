@@ -9,7 +9,7 @@ const puppeteer = require('puppeteer');
   await page.goto('https://neck392.tistory.com/64', { waitUntil: 'networkidle2' });
 
   // Enter the password and submit the form
-  await page.type('input[name="entry64password"]', 'yourPassword'); // Replace 'yourPassword' with the actual password
+  await page.type('input[name="entry64password"]', 'password'); // Replace 'yourPassword' with the actual password
   await page.click('button[type="submit"]');
 
   // Wait for the page to reload after form submission
