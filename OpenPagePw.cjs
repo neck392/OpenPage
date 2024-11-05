@@ -47,6 +47,7 @@ function generateCombinations(length) {
       try {
         await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 3000 });
         console.log('비밀번호가 올바름:', password);
+        console.log('찾은 비밀번호:', password); // 올바른 비밀번호 출력
         await browser.close();
         return; // 올바른 비밀번호를 찾으면 종료
       } catch {
