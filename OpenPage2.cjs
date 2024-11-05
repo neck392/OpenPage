@@ -1,27 +1,29 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  // Launch the browser
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
-
-  // Visit the page
+  
+  // Visit the page and wait for it to load
   await page.goto('https://neck392.tistory.com/64', { waitUntil: 'networkidle2' });
 
-  // Extract the page title
+  // Extract and print the page title
   const pageTitle = await page.title();
   console.log('Page Title:', pageTitle);
 
-  // Wait to ensure the page content is fully loaded
-  await new Promise(resolve => setTimeout(resolve, 5000)); // Custom wait time function
+  // Print the entire HTML of the page for analysis
+  const pageContent = await page.content();
+  console.log('Page HTML:', pageContent);
 
-  // Try a more common selector or inspect the page's HTML structure
+  // Wait for a specific element to appear in the DOM
   try {
-    await page.waitForSelector('article, .post-content, .entry-content', { timeout: 10000 }); // Extended timeout and multiple selectors
+    await page.waitForFunction(() => {
+      return document.querySelector('article, .post-content, .entry-content');
+    }, { timeout: 15000 }); // Extended timeout for dynamic loading
 
-    // Extract the content
+    // Extract the main content using the identified selector
     const content = await page.evaluate(() => {
-      const mainContent = document.querySelector('article, .post-content, .entry-content')?.innerText.trim(); // Adjust selector
+      const mainContent = document.querySelector('article, .post-content, .entry-content')?.innerText.trim();
       return mainContent;
     });
 
