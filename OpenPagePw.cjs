@@ -25,7 +25,7 @@ function generateCombinations(length) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
-  await page.goto('https://neck392.tistory.com/69', { waitUntil: 'networkidle2' });
+  await page.goto('page url', { waitUntil: 'networkidle2' });
 
   for (let length = 1; length <= 9; length++) {
     console.log(`\nCombination length: ${length}`);
