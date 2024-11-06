@@ -1,3 +1,7 @@
+// hard code 
+// 1. url
+// 2. selector [name="entry64password"]
+
 const puppeteer = require('puppeteer');
 
 const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+[]{}|;:,.<>?';
