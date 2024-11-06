@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
   const page = await browser.newPage();
 
   // 페이지로 이동
-  await page.goto('page url', { waitUntil: 'networkidle2' });
+  await page.goto('https://neck392.tistory.com/69', { waitUntil: 'networkidle2' });
 
   // 패스워드 관련 셀렉터 탐색
   const passwordSelector = await page.evaluate(() => {
