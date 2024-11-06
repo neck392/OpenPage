@@ -14,5 +14,5 @@ npm install puppeteer
 ## How to Run
 Hard-coding the url of the web page in code.
 ```
-node OpenPwPage.cjs
+node FindPwSelectorAndOpenPwPage.cjs
 ```
