@@ -26,6 +26,7 @@ function generateCombinations(length) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
+  // input url
   await page.goto('page url', { waitUntil: 'networkidle2' });
 
   // Identify the password-related input field
