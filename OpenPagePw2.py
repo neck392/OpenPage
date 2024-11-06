@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 # Set up the WebDriver (use Chrome in this example)
-driver = webdriver.Chrome(executable_path='path/to/chromedriver')  # chromedriver 경로 지정
+driver = webdriver.Chrome(executable_path='path/to/chromedriver')  # chromedriver PATH
 
 # Navigate to the page
 driver.get('wepageurl')
@@ -14,7 +14,7 @@ time.sleep(3)  # 로딩 시간을 보장하기 위해 대기 (필요에 따라 �
 
 # Locate the password input field and enter the password
 password_input = driver.find_element(By.NAME, 'entry64password')
-password_input.send_keys('yourPassword')  # 실제 비밀번호를 입력하세요
+password_input.send_keys('yourPassword')  # 번호 입력
 
 # Submit the form
 password_input.send_keys(Keys.RETURN)
