@@ -4,6 +4,7 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   
+  // input page url
   await page.goto('page url', { waitUntil: 'networkidle2' });
 
   // Extract the page title
