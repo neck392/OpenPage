@@ -4,22 +4,22 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
-  // 페이지로 이동
-  await page.goto('https://neck392.tistory.com/69', { waitUntil: 'networkidle2' });
+  // Navigate to the target page
+  await page.goto('page url', { waitUntil: 'networkidle2' });
 
-  // 패스워드 관련 셀렉터 탐색
+  // Find the password-related selector
   const passwordSelector = await page.evaluate(() => {
-    // input 요소 중 "password" 키워드를 포함한 요소 찾기
+    // Search for an input element containing the keyword "password"
     const passwordInput = Array.from(document.querySelectorAll('input')).find(input => {
       const typeAttr = input.getAttribute('type') || '';
       const nameAttr = input.getAttribute('name') || '';
       const idAttr = input.getAttribute('id') || '';
 
-      // "password" 키워드를 포함하는 요소 찾기
+      // Look for an element that includes "password" in its attributes
       return typeAttr.includes('password') || nameAttr.includes('password') || idAttr.includes('password');
     });
 
-    // 요소가 있다면 selector를 반환
+    // If the element exists, return the selector
     if (passwordInput) {
       return {
         selector: passwordInput.getAttribute('name') 
@@ -39,7 +39,7 @@ const puppeteer = require('puppeteer');
     console.log('Password-related selector found:', passwordSelector.selector);
     console.log('Additional Details:', passwordSelector);
 
-    // 탐색한 셀렉터로 비밀번호 입력
+    // Use the found selector to type the password
     await page.type(passwordSelector.selector, 'sample_password');
   } else {
     console.log('No password-related input found.');
