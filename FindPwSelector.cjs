@@ -19,15 +19,28 @@ const puppeteer = require('puppeteer');
       return typeAttr.includes('password') || nameAttr.includes('password') || idAttr.includes('password');
     });
 
-    // 요소가 있다면 name 속성 반환
-    return passwordInput ? passwordInput.getAttribute('name') : null;
+    // 요소가 있다면 selector를 반환
+    if (passwordInput) {
+      return {
+        selector: passwordInput.getAttribute('name') 
+          ? `input[name="${passwordInput.getAttribute('name')}"]`
+          : passwordInput.getAttribute('id') 
+            ? `input#${passwordInput.getAttribute('id')}`
+            : null,
+        name: passwordInput.getAttribute('name'),
+        id: passwordInput.getAttribute('id'),
+        type: passwordInput.getAttribute('type')
+      };
+    }
+    return null;
   });
 
-  if (passwordSelector) {
-    console.log('Password-related selector found:', passwordSelector);
+  if (passwordSelector && passwordSelector.selector) {
+    console.log('Password-related selector found:', passwordSelector.selector);
+    console.log('Additional Details:', passwordSelector);
 
     // 탐색한 셀렉터로 비밀번호 입력
-    await page.type(`[name="${passwordSelector}"]`, 'sample_password');
+    await page.type(passwordSelector.selector, 'sample_password');
   } else {
     console.log('No password-related input found.');
   }
